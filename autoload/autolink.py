@@ -6,14 +6,14 @@ import webbrowser
 
 
 def get_link(terms):
-    query = 'https://duckduckgo.com/html/?q={}'.format(
+    query = 'https://duckduckgo.com/html/?q=%5C{}'.format(
         terms.strip().replace(' ', '+')
     )
-    html = urllib.request.urlopen(query).read().decode('utf8')
-    for link in re.findall('div.*?web-result".*?href="(.*?)"',
-                           html, re.DOTALL):
-        if "duckduckgo.com" not in link:
-            return link
+    response = urllib.request.urlopen(query)
+    link = response.getheader('location')
+
+    if not re.match('https://duckduckgo\.com/html', link):
+        return link
 
 
 def open_search(terms):

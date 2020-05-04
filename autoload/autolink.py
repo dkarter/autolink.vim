@@ -12,7 +12,7 @@ def get_link(terms):
     response = urllib.request.urlopen(query)
     link = response.getheader('location')
 
-    if not re.match('https://duckduckgo\.com/html', link):
+    if not re.match(r'https://duckduckgo\.com/html', link):
         return link
 
 
